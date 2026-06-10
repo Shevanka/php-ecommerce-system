@@ -1,8 +1,4 @@
 <?php
-/**
- * Database Configuration
- * Menghubungkan aplikasi dengan database MySQL
- */
 
 $host = "localhost";
 $user = "root";
@@ -10,15 +6,15 @@ $pass = "";
 $db = "penjualan_online";
 
 // Membuat koneksi dengan mysqli
-$conn = mysqli_connect($host, $user, $pass, $db);
+$koneksi = mysqli_connect($host, $user, $pass, $db);
 
 // Mengecek koneksi database
-if (!$conn) {
+if (!$koneksi) {
     die("Koneksi database gagal: " . mysqli_connect_error());
 }
 
 // Set charset UTF-8
-mysqli_set_charset($conn, "utf8");
+mysqli_set_charset($koneksi, "utf8");
 
 if (!function_exists('db')) {
     function db(): PDO

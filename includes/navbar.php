@@ -2,6 +2,13 @@
 
 declare(strict_types=1);
 
+if (!function_exists('currentUserName')) {
+    function currentUserName(): string
+    {
+        return (string) ($_SESSION['user_name'] ?? $_SESSION['username'] ?? 'Pengguna');
+    }
+}
+
 $cartCount = (int) ($_SESSION['cart_count'] ?? 0);
 ?>
 <header class="site-header">

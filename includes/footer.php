@@ -33,4 +33,5 @@ declare(strict_types=1);
 </footer>
 <script src="assets/js/script.js"></script>
 </body>
+
 </html>

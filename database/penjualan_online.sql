@@ -67,6 +67,6 @@ INSERT INTO produk (kategori_id, nama, deskripsi, harga, stok, gambar) VALUES
     (3, 'Rak Buku Minimalis', 'Rak buku 3 tingkat, material kayu engineered.', 349000, 15, NULL);
 
 -- Password for both: password
-INSERT INTO users (nama, email, password, role) VALUES
+INSERT INTO users (username, email, password, role) VALUES
     ('Admin Toko', 'admin@toko.local', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
     ('Pelanggan Demo', 'user@toko.local', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user');
