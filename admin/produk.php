@@ -191,7 +191,7 @@ include '../includes/admin_header.php';
 <script>
     function konfirmasiHapus(id, nama) {
         document.getElementById('namaProdukHapus').textContent = nama;
-        document.getElementById('linkHapusProduk').href = '../proses/proses_hapus_produk.php?id=' + id;
+        document.getElementById('linkHapusProduk').href = 'hapus_produk.php?id=' + id;
         new bootstrap.Modal(document.getElementById('modalHapus')).show();
     }
 </script>

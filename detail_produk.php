@@ -1,5 +1,6 @@
 <?php
-require_once 'koneksi.php';
+require_once __DIR__ . '/config/session.php';
+require_once __DIR__ . '/config/database.php';
 
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($id <= 0) {
@@ -30,7 +31,7 @@ if (!$produk) {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Detail Produk - <?= htmlspecialchars($produk['nama']) ?></title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <div class="container py-4">
@@ -52,12 +53,17 @@ if (!$produk) {
                         <p class="card-text h4 text-success">Rp <?= number_format($produk['harga'], 0, ',', '.') ?></p>
                         <p class="card-text"><strong>Stok:</strong> <?= htmlspecialchars($produk['stok']) ?></p>
                         <p class="card-text"><?= nl2br(htmlspecialchars($produk['deskripsi'])) ?></p>
-                        <a href="keranjang.php?id=<?= $produk['id'] ?>&action=add" class="btn btn-primary">Tambah ke Keranjang</a>
+                        <form action="proses/proses_cart.php" method="post">
+                            <input type="hidden" name="action" value="add">
+                            <input type="hidden" name="produk_id" value="<?= (int) $produk['id'] ?>">
+                            <label for="jumlah">Jumlah</label>
+                            <input id="jumlah" type="number" name="jumlah" min="1" max="<?= (int) $produk['stok'] ?>" value="1">
+                            <button type="submit" class="btn btn-primary">Tambah ke Keranjang</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

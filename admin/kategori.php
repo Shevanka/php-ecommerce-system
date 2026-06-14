@@ -139,7 +139,7 @@ include '../includes/admin_header.php';
 <script>
     function konfirmasiHapus(id, nama) {
         document.getElementById('namaKategoriHapus').textContent = nama;
-        document.getElementById('linkHapusKategori').href = '../proses/proses_hapus_kategori.php?id=' + id;
+        document.getElementById('linkHapusKategori').href = 'hapus_kategori.php?id=' + id;
         new bootstrap.Modal(document.getElementById('modalHapus')).show();
     }
 </script>

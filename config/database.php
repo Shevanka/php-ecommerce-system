@@ -1,20 +1,22 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "penjualan_online";
+declare(strict_types=1);
 
-// Membuat koneksi dengan mysqli
-$koneksi = mysqli_connect($host, $user, $pass, $db);
+$host = getenv('DB_HOST') ?: '127.0.0.1';
+$port = (int) (getenv('DB_PORT') ?: 3306);
+$user = getenv('DB_USER') ?: 'root';
+$pass = getenv('DB_PASS') ?: '';
+$db = getenv('DB_NAME') ?: 'penjualan_online';
 
-// Mengecek koneksi database
+$koneksi = mysqli_connect($host, $user, $pass, $db, $port);
+
 if (!$koneksi) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
+    throw new RuntimeException('Koneksi database gagal: ' . mysqli_connect_error());
 }
 
-// Set charset UTF-8
-mysqli_set_charset($koneksi, "utf8");
+mysqli_set_charset($koneksi, 'utf8mb4');
+
+$conn = $koneksi;
 
 if (!function_exists('db')) {
     function db(): PDO
@@ -25,12 +27,13 @@ if (!function_exists('db')) {
             return $pdo;
         }
 
-        $host = "localhost";
-        $user = "root";
-        $pass = "";
-        $db = "penjualan_online";
+        $host = getenv('DB_HOST') ?: '127.0.0.1';
+        $port = (int) (getenv('DB_PORT') ?: 3306);
+        $user = getenv('DB_USER') ?: 'root';
+        $pass = getenv('DB_PASS') ?: '';
+        $db = getenv('DB_NAME') ?: 'penjualan_online';
 
-        $dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $host, $db);
+        $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $host, $port, $db);
 
         try {
             $pdo = new PDO($dsn, $user, $pass, [

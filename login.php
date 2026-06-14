@@ -1,15 +1,13 @@
 <?php
-session_start();
-
-include 'config/database.php';
-$conn = $koneksi;
+require_once __DIR__ . '/config/session.php';
+require_once __DIR__ . '/config/database.php';
 
 $error = '';
 $success = '';
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = isset($_POST['username']) ? trim($_POST['username']) : '';
+    $username = trim($_POST['username'] ?? '');
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
     // Validate input
@@ -17,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Username and password are required';
     } else {
         // Check database for user
-        $stmt = $conn->prepare('SELECT id, username, password FROM users WHERE username = ?');
-        $stmt->bind_param('s', $username);
+        $stmt = $conn->prepare('SELECT id, nama, password, role FROM users WHERE nama = ? OR email = ? LIMIT 1');
+        $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
         $result = $stmt->get_result();
 
@@ -28,9 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verify password
             if (password_verify($password, $user['password'])) {
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $success = 'Login successful! Redirecting...';
-                header('refresh:2; url=index.php');
+                $_SESSION['username'] = $user['nama'];
+                $_SESSION['user_name'] = $user['nama'];
+                $_SESSION['role'] = $user['role'];
+                session_regenerate_id(true);
+                header('Location: ' . ($user['role'] === 'admin' ? 'admin/dashboard.php' : 'index.php'));
+                exit;
             } else {
                 $error = 'Invalid username or password';
             }
@@ -42,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$conn->close();
 ?>
 
 <!DOCTYPE html>
@@ -162,7 +162,7 @@ $conn->close();
 
         <form method="POST" action="">
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="username">Nama atau Email</label>
                 <input type="text" id="username" name="username" required autofocus>
             </div>
 

@@ -39,6 +39,11 @@ CREATE TABLE pesanan (
     user_id INT UNSIGNED NOT NULL,
     total DECIMAL(12, 2) NOT NULL,
     status ENUM('pending', 'diproses', 'dikirim', 'selesai', 'batal') NOT NULL DEFAULT 'pending',
+    nama_penerima VARCHAR(100) NOT NULL,
+    alamat TEXT NOT NULL,
+    telepon VARCHAR(20) NOT NULL,
+    metode_pembayaran ENUM('transfer', 'cod', 'kartu_kredit') NOT NULL,
+    catatan TEXT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_pesanan_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
@@ -67,6 +72,6 @@ INSERT INTO produk (kategori_id, nama, deskripsi, harga, stok, gambar) VALUES
     (3, 'Rak Buku Minimalis', 'Rak buku 3 tingkat, material kayu engineered.', 349000, 15, NULL);
 
 -- Password for both: password
-INSERT INTO users (username, email, password, role) VALUES
+INSERT INTO users (nama, email, password, role) VALUES
     ('Admin Toko', 'admin@toko.local', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin'),
     ('Pelanggan Demo', 'user@toko.local', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'user');

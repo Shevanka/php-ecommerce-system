@@ -1,129 +1,41 @@
 <?php
-session_start();
+require_once __DIR__ . '/config/session.php';
 
-if (!isset($_COOKIE['cart'])) {
-    $cart = array();
-    setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
-} else {
-    $cart = json_decode($_COOKIE['cart'], true);
+$pageTitle = 'Keranjang';
+$cart = $_SESSION['cart'] ?? [];
+$total = 0;
+foreach ($cart as $item) {
+    $total += (float) $item['harga'] * (int) $item['jumlah'];
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['action'])) {
-    $action = $_POST['action'];
-
-    if ($action == 'add') {
-        $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-        $product_name = isset($_POST['product_name']) ? htmlspecialchars($_POST['product_name']) : '';
-        $product_price = isset($_POST['product_price']) ? floatval($_POST['product_price']) : 0;
-        $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
-
-        if ($product_id > 0 && $quantity > 0) {
-            $item_key = 'product_' . $product_id;
-
-            if (isset($cart[$item_key])) {
-                $cart[$item_key]['quantity'] += $quantity;
-            } else {
-                $cart[$item_key] = array(
-                    'product_id' => $product_id,
-                    'product_name' => $product_name,
-                    'product_price' => $product_price,
-                    'quantity' => $quantity
-                );
-            }
-
-            setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
-            $_COOKIE['cart'] = json_encode($cart);
-
-            $_SESSION['message'] = 'Product added to cart successfully!';
-        }
-    }
-
-    // Remove item from cart
-    elseif ($action == 'remove') {
-        $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-        $item_key = 'product_' . $product_id;
-
-        if (isset($cart[$item_key])) {
-            unset($cart[$item_key]);
-            setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
-            $_COOKIE['cart'] = json_encode($cart);
-
-            $_SESSION['message'] = 'Product removed from cart!';
-        }
-    }
-
-    // Update item quantity
-    elseif ($action == 'update') {
-        $product_id = isset($_POST['product_id']) ? intval($_POST['product_id']) : 0;
-        $quantity = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
-        $item_key = 'product_' . $product_id;
-
-        if (isset($cart[$item_key])) {
-            if ($quantity <= 0) {
-                unset($cart[$item_key]);
-                $_SESSION['message'] = 'Product removed from cart!';
-            } else {
-                $cart[$item_key]['quantity'] = $quantity;
-                $_SESSION['message'] = 'Cart updated successfully!';
-            }
-
-            setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
-            $_COOKIE['cart'] = json_encode($cart);
-        }
-    }
-
-    // Clear entire cart
-    elseif ($action == 'clear') {
-        $cart = array();
-        setcookie('cart', json_encode($cart), time() + (86400 * 30), "/");
-        $_COOKIE['cart'] = json_encode($cart);
-
-        $_SESSION['message'] = 'Cart cleared!';
-    }
-}
-
-// Get cart function
-function getCart()
-{
-    if (isset($_COOKIE['cart'])) {
-        return json_decode($_COOKIE['cart'], true);
-    }
-    return array();
-}
-
-// Get cart total
-function getCartTotal()
-{
-    $cart = getCart();
-    $total = 0;
-
-    foreach ($cart as $item) {
-        $total += $item['product_price'] * $item['quantity'];
-    }
-
-    return $total;
-}
-
-// Get cart item count
-function getCartItemCount()
-{
-    $cart = getCart();
-    $count = 0;
-
-    foreach ($cart as $item) {
-        $count += $item['quantity'];
-    }
-
-    return $count;
-}
-
-// Display cart items (for debugging/testing)
-if (isset($_GET['view'])) {
-    echo '<pre>';
-    echo 'Cart Contents:<br>';
-    var_dump(getCart());
-    echo '<br>Total: $' . number_format(getCartTotal(), 2);
-    echo '<br>Item Count: ' . getCartItemCount();
-    echo '</pre>';
-}
+require __DIR__ . '/includes/header.php';
+require __DIR__ . '/includes/navbar.php';
 ?>
+<main class="section">
+    <div class="container">
+        <div class="section-head"><h1>Keranjang Belanja</h1></div>
+        <?php require __DIR__ . '/includes/alert.php'; ?>
+        <?php if ($cart === []): ?>
+            <div class="empty-state"><p>Keranjang masih kosong.</p><a class="btn btn-primary" href="index.php#produk">Belanja Sekarang</a></div>
+        <?php else: ?>
+            <?php foreach ($cart as $item): ?>
+                <article class="product-card" style="margin-bottom: 1rem; padding: 1rem;">
+                    <h3><?= htmlspecialchars($item['nama_produk'], ENT_QUOTES, 'UTF-8') ?></h3>
+                    <p>Rp <?= number_format((float) $item['harga'], 0, ',', '.') ?></p>
+                    <form action="proses/proses_cart.php" method="post" class="product-actions">
+                        <input type="hidden" name="produk_id" value="<?= (int) $item['produk_id'] ?>">
+                        <input type="number" name="jumlah" min="1" value="<?= (int) $item['jumlah'] ?>">
+                        <button class="btn btn-outline" name="action" value="update">Perbarui</button>
+                        <button class="btn btn-outline" name="action" value="remove">Hapus</button>
+                    </form>
+                </article>
+            <?php endforeach; ?>
+            <h2>Total: Rp <?= number_format($total, 0, ',', '.') ?></h2>
+            <div class="product-actions">
+                <form action="proses/proses_cart.php" method="post"><button class="btn btn-outline" name="action" value="clear">Kosongkan</button></form>
+                <a class="btn btn-primary" href="checkout.php">Lanjut Checkout</a>
+            </div>
+        <?php endif; ?>
+    </div>
+</main>
+<?php require __DIR__ . '/includes/footer.php'; ?>

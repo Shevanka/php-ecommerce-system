@@ -9,7 +9,7 @@ if (!function_exists('currentUserName')) {
     }
 }
 
-$cartCount = (int) ($_SESSION['cart_count'] ?? 0);
+$cartCount = function_exists('cartCount') ? cartCount() : 0;
 ?>
 <header class="site-header">
     <div class="container header-inner">

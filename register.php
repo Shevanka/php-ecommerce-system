@@ -1,27 +1,8 @@
 <?php
-session_start();
+require_once __DIR__ . '/config/session.php';
+require_once __DIR__ . '/config/database.php';
 
-include 'config/database.php';
-
-if (file_exists(__DIR__ . '/koneksi.php')) {
-    include_once __DIR__ . '/koneksi.php';
-}
-if (file_exists(__DIR__ . '/config.php')) {
-    include_once __DIR__ . '/config.php';
-}
-
-$mysqli = null;
-if (isset($koneksi) && $koneksi instanceof mysqli) {
-    $mysqli = $koneksi;
-} elseif (isset($conn) && $conn instanceof mysqli) {
-    $mysqli = $conn;
-} else {
-    $mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
-}
-
-if ($mysqli->connect_errno) {
-    die('Database connection failed: ' . $mysqli->connect_error);
-}
+$mysqli = $koneksi;
 
 $errors = [];
 $success = false;
@@ -48,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $stmt = $mysqli->prepare('SELECT id FROM users WHERE username = ? OR email = ? LIMIT 1');
+        $stmt = $mysqli->prepare('SELECT id FROM users WHERE nama = ? OR email = ? LIMIT 1');
         if ($stmt) {
             $stmt->bind_param('ss', $username, $email);
             $stmt->execute();
@@ -64,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         $passwordHash = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $mysqli->prepare('INSERT INTO users (username, email, password) VALUES (?, ?, ?)');
+        $stmt = $mysqli->prepare('INSERT INTO users (nama, email, password) VALUES (?, ?, ?)');
         if ($stmt) {
             $stmt->bind_param('sss', $username, $email, $passwordHash);
             if ($stmt->execute()) {

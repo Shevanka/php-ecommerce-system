@@ -51,7 +51,7 @@ try {
     $totalKategori = (int) $pdo->query('SELECT COUNT(*) FROM kategori')->fetchColumn();
     $totalPesanan = (int) $pdo->query('SELECT COUNT(*) FROM pesanan')->fetchColumn();
 } catch (PDOException) {
-    $dbError = 'Database belum siap. Import file config/penjualan_online.sql terlebih dahulu.';
+    $dbError = 'Database belum siap. Import file database/penjualan_online.sql terlebih dahulu.';
     $totalProduk = 0;
     $totalKategori = 0;
     $totalPesanan = 0;
@@ -220,7 +220,12 @@ require_once __DIR__ . '/includes/navbar.php';
                                 <div class="product-stock">Stok: <?= (int) $produk['stok'] ?></div>
                                 <div class="product-actions">
                                     <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>" class="btn btn-outline">Detail</a>
-                                    <a href="proses/proses_cart.php?aksi=tambah&amp;id=<?= (int) $produk['id'] ?>" class="btn btn-primary">+ Keranjang</a>
+                                    <form action="proses/proses_cart.php" method="post">
+                                        <input type="hidden" name="action" value="add">
+                                        <input type="hidden" name="produk_id" value="<?= (int) $produk['id'] ?>">
+                                        <input type="hidden" name="jumlah" value="1">
+                                        <button type="submit" class="btn btn-primary">+ Keranjang</button>
+                                    </form>
                                 </div>
                             </div>
                         </article>

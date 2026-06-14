@@ -13,9 +13,19 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+function appUrl(string $path = ''): string
+{
+    $basePath = rtrim((string) (getenv('APP_BASE_PATH') ?: '/penjualan-online'), '/');
+    return $basePath . '/' . ltrim($path, '/');
+}
+
 // Flash message helper
 function setFlash($key, $message, $type = 'success')
 {
+    if (func_num_args() === 2 && in_array($key, ['success', 'danger', 'error', 'warning', 'info'], true)) {
+        $type = $key;
+    }
+
     $_SESSION['flash'] = [
         'key' => $key,
         'message' => $message,
@@ -39,6 +49,14 @@ function isLoggedIn()
     return isset($_SESSION['user_id']) && !empty($_SESSION['user_id']);
 }
 
+function cartCount(): int
+{
+    return array_sum(array_map(
+        static fn(array $item): int => (int) ($item['jumlah'] ?? 0),
+        $_SESSION['cart'] ?? []
+    ));
+}
+
 // Check if user is admin
 function isAdmin()
 {
@@ -50,7 +68,7 @@ function requireLogin()
 {
     if (!isLoggedIn()) {
         setFlash('auth', 'Anda harus login terlebih dahulu', 'warning');
-        header('Location: /login.php');
+        header('Location: ' . appUrl('login.php'));
         exit;
     }
 }
@@ -60,7 +78,7 @@ function requireAdmin()
 {
     if (!isAdmin()) {
         setFlash('auth', 'Anda tidak memiliki akses ke halaman ini', 'danger');
-        header('Location: /index.php');
+        header('Location: ' . appUrl('index.php'));
         exit;
     }
 }

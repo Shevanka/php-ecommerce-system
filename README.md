@@ -219,27 +219,15 @@ database/penjualan_online.sql
 
 ### 5. Konfigurasi Database
 
-File:
+Konfigurasi default sudah cocok untuk Laragon (`root` tanpa password). Untuk environment lain, gunakan environment variable berikut berdasarkan `.env.example`:
 
-```text
-config/database.php
-```
-
-Contoh konfigurasi:
-
-```php
-<?php
-
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "penjualan_online";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conn) {
-    die("Koneksi database gagal");
-}
+```dotenv
+APP_BASE_PATH=/penjualan-online
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=penjualan_online
+DB_USER=root
+DB_PASS=
 ```
 
 ### 6. Jalankan Aplikasi

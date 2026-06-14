@@ -88,18 +88,22 @@ function handleAddToCart() {
     // Tambah ke cart atau update jumlah jika sudah ada
     $cartKey = 'produk_' . $produk_id;
     if (isset($_SESSION['cart'][$cartKey])) {
-        $_SESSION['cart'][$cartKey]['jumlah'] += $jumlah;
+        $jumlahBaru = $_SESSION['cart'][$cartKey]['jumlah'] + $jumlah;
+        if ($jumlahBaru > $produk['stok']) {
+            throw new Exception('Jumlah melebihi stok yang tersedia');
+        }
+        $_SESSION['cart'][$cartKey]['jumlah'] = $jumlahBaru;
     } else {
         $_SESSION['cart'][$cartKey] = [
             'produk_id' => $produk_id,
-            'nama_produk' => $produk['nama_produk'],
+            'nama_produk' => $produk['nama'],
             'harga' => $produk['harga'],
             'jumlah' => $jumlah,
             'gambar' => $produk['gambar']
         ];
     }
 
-    setFlash('cart', $produk['nama_produk'] . ' ditambahkan ke keranjang', 'success');
+    setFlash('cart', $produk['nama'] . ' ditambahkan ke keranjang', 'success');
     header('Location: ../cart.php');
     exit;
 }
