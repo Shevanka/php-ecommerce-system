@@ -11,6 +11,14 @@ $stmt = $conn->prepare('SELECT id, total, status, created_at FROM pesanan WHERE 
 $stmt->bind_param('i', $_SESSION['user_id']);
 $stmt->execute();
 $orders = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+$statusLabels = [
+    'pending'  => 'Menunggu',
+    'diproses' => 'Diproses',
+    'dikirim'  => 'Dikirim',
+    'selesai'  => 'Selesai',
+    'batal'    => 'Dibatalkan',
+];
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -20,7 +28,7 @@ $orders = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <title>Riwayat Pesanan | Penjualan Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/ta2/assets/css/style.css">
 </head>
 <body>
@@ -41,11 +49,16 @@ $orders = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
             </div>
         <?php else: ?>
             <?php foreach ($orders as $order): ?>
-                <article class="feature-card" style="margin-bottom:1rem;">
-                    <h3>Pesanan #<?= (int) $order['id'] ?></h3>
-                    <p>Status: <?= htmlspecialchars($order['status'], ENT_QUOTES, 'UTF-8') ?></p>
-                    <p>Total: Rp <?= number_format((float) $order['total'], 0, ',', '.') ?></p>
-                    <small><?= htmlspecialchars($order['created_at'], ENT_QUOTES, 'UTF-8') ?></small>
+                <?php $statusKey = $order['status']; ?>
+                <article class="order-card">
+                    <div>
+                        <span class="order-card-id">PESANAN #<?= str_pad((string) $order['id'], 5, '0', STR_PAD_LEFT) ?></span>
+                        <h3>Rp <?= number_format((float) $order['total'], 0, ',', '.') ?></h3>
+                        <span class="order-card-date"><?= date('d M Y, H:i', strtotime($order['created_at'])) ?></span>
+                    </div>
+                    <span class="order-stamp is-<?= htmlspecialchars($statusKey, ENT_QUOTES, 'UTF-8') ?>">
+                        <?= htmlspecialchars($statusLabels[$statusKey] ?? $statusKey, ENT_QUOTES, 'UTF-8') ?>
+                    </span>
                 </article>
             <?php endforeach; ?>
         <?php endif; ?>

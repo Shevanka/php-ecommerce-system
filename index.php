@@ -10,56 +10,73 @@ $kategoriId = filter_input(INPUT_GET, 'kategori', FILTER_VALIDATE_INT);
 $search     = mb_substr(trim((string) (filter_input(INPUT_GET, 'q', FILTER_UNSAFE_RAW) ?? '')), 0, 100);
 
 // ── Data ───────────────────────────────────────────────
-$kategoriList = [];
-$produkList   = [];
-$dbError      = null;
-$totalProduk  = 0;
+$kategoriList  = [];
+$produkList    = [];
+$dbError       = null;
+$totalProduk   = 0;
 $totalKategori = 0;
 $totalPesanan  = 0;
 
+// Build WHERE clause
+$conditions = ['p.stok > 0'];
+$params     = [];
+$types      = '';
+
+if ($kategoriId !== false && $kategoriId !== null && $kategoriId > 0) {
+    $conditions[] = 'p.kategori_id = ?';
+    $params[]     = $kategoriId;
+    $types       .= 'i';
+}
+
+if ($search !== '') {
+    $conditions[] = '(p.nama LIKE ? OR p.deskripsi LIKE ?)';
+    $searchParam  = '%' . $search . '%';
+    $params[]     = $searchParam;
+    $params[]     = $searchParam;
+    $types       .= 'ss';
+}
+
+$whereClause = 'WHERE ' . implode(' AND ', $conditions);
+
 try {
-    $dsn = sprintf(
-        'mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4',
-        getenv('DB_HOST') ?: '127.0.0.1',
-        (int) (getenv('DB_PORT') ?: 3306),
-        getenv('DB_NAME') ?: 'penjualan_online'
-    );
-    $pdo = new PDO($dsn, getenv('DB_USER') ?: 'root', getenv('DB_PASS') ?: '', [
-        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-        PDO::ATTR_EMULATE_PREPARES   => false,
-    ]);
-
-    $kategoriList = $pdo->query('SELECT id, nama FROM kategori ORDER BY nama ASC')->fetchAll();
-
-    $sql    = 'SELECT p.id, p.nama, p.deskripsi, p.harga, p.stok, p.gambar, k.nama AS kategori_nama
-               FROM produk p
-               INNER JOIN kategori k ON k.id = p.kategori_id
-               WHERE p.stok > 0';
-    $params = [];
-
-    if ($kategoriId !== false && $kategoriId !== null && $kategoriId > 0) {
-        $sql .= ' AND p.kategori_id = :kategori_id';
-        $params['kategori_id'] = $kategoriId;
+    // Kategori list
+    $resKategori = mysqli_query($conn, 'SELECT id, nama FROM kategori ORDER BY nama ASC');
+    if (!$resKategori) throw new RuntimeException(mysqli_error($conn));
+    while ($row = mysqli_fetch_assoc($resKategori)) {
+        $kategoriList[] = $row;
     }
 
-    if ($search !== '') {
-        $sql .= ' AND (p.nama LIKE :search OR p.deskripsi LIKE :search)';
-        $params['search'] = '%' . $search . '%';
+    // Produk list
+    $sql = "
+        SELECT p.id, p.nama, p.deskripsi, p.harga, p.stok, p.gambar, k.nama AS kategori_nama
+        FROM produk p
+        INNER JOIN kategori k ON k.id = p.kategori_id
+        $whereClause
+        ORDER BY p.created_at DESC
+    ";
+
+    if ($params) {
+        $stmt = mysqli_prepare($conn, $sql);
+        if (!$stmt) throw new RuntimeException(mysqli_error($conn));
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
+        mysqli_stmt_execute($stmt);
+        $res = mysqli_stmt_get_result($stmt);
+    } else {
+        $res = mysqli_query($conn, $sql);
+        if (!$res) throw new RuntimeException(mysqli_error($conn));
     }
 
-    $sql .= ' ORDER BY p.created_at DESC';
+    while ($row = mysqli_fetch_assoc($res)) {
+        $produkList[] = $row;
+    }
 
-    $stmt       = $pdo->prepare($sql);
-    $stmt->execute($params);
-    $produkList = $stmt->fetchAll();
+    // Counts
+    $totalProduk   = (int) mysqli_fetch_row(mysqli_query($conn, 'SELECT COUNT(*) FROM produk WHERE stok > 0'))[0];
+    $totalKategori = (int) mysqli_fetch_row(mysqli_query($conn, 'SELECT COUNT(*) FROM kategori'))[0];
+    $totalPesanan  = (int) mysqli_fetch_row(mysqli_query($conn, 'SELECT COUNT(*) FROM pesanan'))[0];
 
-    $totalProduk   = (int) $pdo->query('SELECT COUNT(*) FROM produk WHERE stok > 0')->fetchColumn();
-    $totalKategori = (int) $pdo->query('SELECT COUNT(*) FROM kategori')->fetchColumn();
-    $totalPesanan  = (int) $pdo->query('SELECT COUNT(*) FROM pesanan')->fetchColumn();
-
-} catch (PDOException) {
-    $dbError = 'Database belum siap. Import file database/penjualan_online.sql terlebih dahulu.';
+} catch (Throwable $e) {
+    $dbError = 'Database belum siap. Import file database/penjualan_online.sql terlebih dahulu. (' . $e->getMessage() . ')';
 }
 
 // ── Helpers ────────────────────────────────────────────
@@ -91,6 +108,7 @@ function productImageUrl(?string $gambar): ?string
 <?php require __DIR__ . '/includes/navbar.php'; ?>
 
 <main>
+    <!-- ── Hero ── -->
     <section class="hero">
         <div class="container hero-grid">
             <div>
@@ -106,7 +124,7 @@ function productImageUrl(?string $gambar): ?string
                     <?php if (!isLoggedIn()): ?>
                         <a href="register.php" class="btn btn-outline">Buat Akun</a>
                     <?php else: ?>
-                        <a href="cart.php" class="btn btn-outline">Ke Keranjang</a>
+                        <a href="cart.php" class="btn btn-outline">Ke Keranjang</a>                        
                     <?php endif; ?>
                 </div>
             </div>
@@ -130,6 +148,7 @@ function productImageUrl(?string $gambar): ?string
         </div>
     </section>
 
+    <!-- ── Fitur ── -->
     <section class="section" id="fitur">
         <div class="container">
             <div class="section-head">
@@ -161,6 +180,7 @@ function productImageUrl(?string $gambar): ?string
         </div>
     </section>
 
+    <!-- ── Katalog ── -->
     <section class="section" id="produk">
         <div class="container">
             <div class="section-head">
@@ -177,25 +197,41 @@ function productImageUrl(?string $gambar): ?string
                     <?php if ($kategoriId): ?>
                         <input type="hidden" name="kategori" value="<?= (int) $kategoriId ?>">
                     <?php endif; ?>
-                    <input type="search" name="q" placeholder="Cari produk..."
-                        value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>" maxlength="100">
+                    <input
+                        type="search"
+                        name="q"
+                        placeholder="Cari produk..."
+                        value="<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>"
+                        maxlength="100"
+                    >
                     <button type="submit" class="btn btn-primary btn-sm">Cari</button>
                 </form>
 
                 <div class="category-pills">
                     <a href="index.php#produk" class="pill<?= !$kategoriId ? ' is-active' : '' ?>">Semua</a>
                     <?php foreach ($kategoriList as $kat): ?>
-                        <a href="index.php?kategori=<?= (int) $kat['id'] ?>#produk"
-                            class="pill<?= $kategoriId === (int) $kat['id'] ? ' is-active' : '' ?>">
-                            <?= htmlspecialchars($kat['nama'], ENT_QUOTES, 'UTF-8') ?>
-                        </a>
+                        <a
+                            href="index.php?kategori=<?= (int) $kat['id'] ?>#produk"
+                            class="pill<?= $kategoriId === (int) $kat['id'] ? ' is-active' : '' ?>"
+                        ><?= htmlspecialchars($kat['nama'], ENT_QUOTES, 'UTF-8') ?></a>
                     <?php endforeach; ?>
                 </div>
             </div>
 
             <div class="product-grid">
                 <?php if ($produkList === []): ?>
-                    <div class="empty-state"><p>Belum ada produk ditemukan.</p></div>
+                    <div class="empty-state">
+                        <p>
+                            <?php if ($search !== ''): ?>
+                                Tidak ada produk yang cocok dengan "<strong><?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?></strong>".
+                            <?php else: ?>
+                                Belum ada produk ditemukan.
+                            <?php endif; ?>
+                        </p>
+                        <?php if ($search !== '' || $kategoriId): ?>
+                            <a href="index.php#produk" class="btn btn-outline">Lihat Semua Produk</a>
+                        <?php endif; ?>
+                    </div>
                 <?php else: ?>
                     <?php foreach ($produkList as $produk): ?>
                         <?php
@@ -205,7 +241,11 @@ function productImageUrl(?string $gambar): ?string
                         <article class="product-card">
                             <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>" class="product-thumb">
                                 <?php if ($imgUrl): ?>
-                                    <img src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>" alt="">
+                                    <img
+                                        src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
+                                        alt="<?= htmlspecialchars($produk['nama'], ENT_QUOTES, 'UTF-8') ?>"
+                                        loading="lazy"
+                                    >
                                 <?php else: ?>
                                     <span aria-hidden="true">📦</span>
                                 <?php endif; ?>
