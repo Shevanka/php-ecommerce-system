@@ -88,6 +88,7 @@ function handleAddToCart() {
     // Tambah ke cart atau update jumlah jika sudah ada
     $cartKey = 'produk_' . $produk_id;
     if (isset($_SESSION['cart'][$cartKey])) {
+<<<<<<< HEAD
         $jumlahBaru = $_SESSION['cart'][$cartKey]['jumlah'] + $jumlah;
         if ($jumlahBaru > $produk['stok']) {
             throw new Exception('Jumlah melebihi stok yang tersedia');
@@ -97,13 +98,24 @@ function handleAddToCart() {
         $_SESSION['cart'][$cartKey] = [
             'produk_id' => $produk_id,
             'nama_produk' => $produk['nama'],
+=======
+        $_SESSION['cart'][$cartKey]['jumlah'] += $jumlah;
+    } else {
+        $_SESSION['cart'][$cartKey] = [
+            'produk_id' => $produk_id,
+            'nama_produk' => $produk['nama_produk'],
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
             'harga' => $produk['harga'],
             'jumlah' => $jumlah,
             'gambar' => $produk['gambar']
         ];
     }
 
+<<<<<<< HEAD
     setFlash('cart', $produk['nama'] . ' ditambahkan ke keranjang', 'success');
+=======
+    setFlash('cart', $produk['nama_produk'] . ' ditambahkan ke keranjang', 'success');
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     header('Location: ../cart.php');
     exit;
 }

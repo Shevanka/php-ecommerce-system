@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* ============================================================
    Penjualan Online — Design tokens
    Direction: a digital ledger. Warm dark ink paper, ink-stamp
@@ -42,6 +43,21 @@
     --font-display: "Fraunces", "Iowan Old Style", serif;
     --font-body: "Inter", system-ui, -apple-system, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+=======
+:root {
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --text: #1a1d26;
+    --muted: #5c6370;
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent: #0ea5e9;
+    --border: #e5e7eb;
+    --success: #059669;
+    --radius: 12px;
+    --shadow: 0 10px 40px rgba(15, 23, 42, 0.08);
+    --font: "DM Sans", system-ui, sans-serif;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 *,
@@ -50,6 +66,7 @@
     box-sizing: border-box;
 }
 
+<<<<<<< HEAD
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -71,6 +88,14 @@ body {
         radial-gradient(ellipse 700px 500px at 100% 0%, rgba(62, 143, 110, 0.08), transparent 55%);
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+=======
+body {
+    margin: 0;
+    font-family: var(--font);
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 img {
@@ -83,17 +108,21 @@ a {
     text-decoration: none;
 }
 
+<<<<<<< HEAD
 :focus-visible {
     outline: 2px solid var(--accent-bright);
     outline-offset: 3px;
     border-radius: 2px;
 }
 
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .container {
     width: min(1120px, 92vw);
     margin-inline: auto;
 }
 
+<<<<<<< HEAD
 h1, h2, h3 {
     font-family: var(--font-display);
     font-weight: 600;
@@ -110,15 +139,24 @@ h1, h2, h3 {
    Header / Nav
    ============================================================ */
 
+=======
+/* Header */
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .site-header {
     position: sticky;
     top: 0;
     z-index: 100;
+<<<<<<< HEAD
     background: rgba(217, 105, 46, 0.12);
     border: 1px solid rgba(217, 105, 46, 0.35);
     color: var(--accent-bright);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--hairline);
+=======
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .header-inner {
@@ -126,7 +164,11 @@ h1, h2, h3 {
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+<<<<<<< HEAD
     padding: 0.9rem 0;
+=======
+    padding: 0.85rem 0;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .brand {
@@ -135,6 +177,7 @@ h1, h2, h3 {
     gap: 0.6rem;
     font-weight: 700;
     font-size: 1.05rem;
+<<<<<<< HEAD
     font-family: var(--font-display);
     color: var(--paper);
 }
@@ -142,12 +185,20 @@ h1, h2, h3 {
 .brand-logo {
     width: 34px;
     height: 34px;
+=======
+}
+
+.brand-logo {
+    width: 36px;
+    height: 36px;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     object-fit: contain;
 }
 
 .main-nav {
     display: flex;
     align-items: center;
+<<<<<<< HEAD
     gap: 1.4rem;
     font-size: 0.92rem;
 }
@@ -165,15 +216,31 @@ h1, h2, h3 {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+=======
+    gap: 1.25rem;
+    font-size: 0.95rem;
+}
+
+.main-nav a:hover {
+    color: var(--primary);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .nav-user {
     color: var(--muted);
+<<<<<<< HEAD
     font-size: 0.85rem;
 }
 
 .nav-admin {
     color: var(--accent-bright);
+=======
+    font-size: 0.875rem;
+}
+
+.nav-admin {
+    color: var(--primary);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     font-weight: 600;
 }
 
@@ -181,6 +248,7 @@ h1, h2, h3 {
     display: inline-flex;
     align-items: center;
     justify-content: center;
+<<<<<<< HEAD
     min-width: 1.2rem;
     height: 1.2rem;
     padding: 0 0.35rem;
@@ -189,6 +257,15 @@ h1, h2, h3 {
     color: var(--accent-ink);
     font-family: var(--font-mono);
     font-size: 0.68rem;
+=======
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.35rem;
+    border-radius: 999px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 0.7rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     font-weight: 700;
 }
 
@@ -210,15 +287,20 @@ h1, h2, h3 {
     border-radius: 2px;
 }
 
+<<<<<<< HEAD
 /* ============================================================
    Buttons
    ============================================================ */
 
+=======
+/* Buttons */
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
+<<<<<<< HEAD
     padding: 0.65rem 1.3rem;
     border-radius: 999px;
     font-weight: 600;
@@ -227,12 +309,22 @@ h1, h2, h3 {
     border: 1.5px solid transparent;
     cursor: pointer;
     transition: transform 0.15s var(--ease), background 0.15s var(--ease), border-color 0.15s var(--ease), box-shadow 0.15s var(--ease);
+=======
+    padding: 0.65rem 1.25rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s, border-color 0.15s;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .btn:hover {
     transform: translateY(-1px);
 }
 
+<<<<<<< HEAD
 .btn:active {
     transform: translateY(0);
 }
@@ -245,10 +337,20 @@ h1, h2, h3 {
 
 .btn-primary:hover {
     background: var(--accent-bright);
+=======
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .btn-outline {
     background: transparent;
+<<<<<<< HEAD
     border-color: var(--hairline-bright);
     color: var(--text);
 }
@@ -270,6 +372,23 @@ h1, h2, h3 {
 .hero {
     padding: 4.5rem 0 3rem;
     position: relative;
+=======
+    border-color: var(--border);
+    color: var(--text);
+}
+
+.btn-sm {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.875rem;
+}
+
+/* Hero */
+.hero {
+    padding: 4rem 0 3rem;
+    background:
+        radial-gradient(ellipse 80% 60% at 10% 0%, rgba(37, 99, 235, 0.12), transparent),
+        radial-gradient(ellipse 60% 50% at 90% 10%, rgba(14, 165, 233, 0.1), transparent);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .hero-grid {
@@ -280,6 +399,7 @@ h1, h2, h3 {
 }
 
 .hero-eyebrow {
+<<<<<<< HEAD
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -316,6 +436,31 @@ h1, h2, h3 {
     font-size: 1.05rem;
     max-width: 34rem;
     margin: 0 0 1.85rem;
+=======
+    display: inline-block;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+}
+
+.hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+}
+
+.hero p {
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 34rem;
+    margin: 0 0 1.75rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .hero-actions {
@@ -326,6 +471,7 @@ h1, h2, h3 {
 
 .hero-card {
     background: var(--surface);
+<<<<<<< HEAD
     border-radius: var(--radius-lg);
     padding: 1.6rem;
     box-shadow: var(--shadow);
@@ -352,25 +498,42 @@ h1, h2, h3 {
     letter-spacing: 0.08em;
     color: var(--muted);
     font-weight: 600;
+=======
+    border-radius: calc(var(--radius) + 4px);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
+<<<<<<< HEAD
     margin-top: 1.1rem;
+=======
+    margin-top: 1rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .stat {
     text-align: center;
+<<<<<<< HEAD
     padding: 0.85rem 0.5rem;
     border-radius: var(--radius);
     background: var(--bg-soft);
     border: 1px solid var(--hairline);
+=======
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    background: var(--bg);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .stat strong {
     display: block;
+<<<<<<< HEAD
     font-family: var(--font-mono);
     font-size: 1.5rem;
     font-weight: 700;
@@ -390,6 +553,18 @@ h1, h2, h3 {
    Sections
    ============================================================ */
 
+=======
+    font-size: 1.35rem;
+    color: var(--primary);
+}
+
+.stat span {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+/* Sections */
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .section {
     padding: 3.5rem 0;
 }
@@ -402,7 +577,12 @@ h1, h2, h3 {
 
 .section-head h2 {
     margin: 0 0 0.5rem;
+<<<<<<< HEAD
     font-size: 1.85rem;
+=======
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .section-head p {
@@ -419,6 +599,7 @@ h1, h2, h3 {
 
 .feature-card {
     background: var(--surface);
+<<<<<<< HEAD
     border: 1px solid var(--hairline);
     border-radius: var(--radius-lg);
     padding: 1.4rem;
@@ -427,14 +608,23 @@ h1, h2, h3 {
 
 .feature-card:hover {
     border-color: var(--hairline-bright);
+=======
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.35rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .feature-card h3 {
     margin: 0 0 0.5rem;
+<<<<<<< HEAD
     font-size: 1.02rem;
     font-family: var(--font-body);
     font-weight: 700;
     color: var(--paper);
+=======
+    font-size: 1rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .feature-card p {
@@ -445,6 +635,7 @@ h1, h2, h3 {
 
 .feature-tag {
     display: inline-block;
+<<<<<<< HEAD
     font-family: var(--font-mono);
     font-size: 0.68rem;
     font-weight: 700;
@@ -458,13 +649,28 @@ h1, h2, h3 {
    Catalog toolbar
    ============================================================ */
 
+=======
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Catalog toolbar */
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .catalog-toolbar {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
+<<<<<<< HEAD
     margin-bottom: 1.85rem;
+=======
+    margin-bottom: 1.75rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .search-form {
@@ -478,6 +684,7 @@ h1, h2, h3 {
 .search-form input,
 .search-form select {
     font: inherit;
+<<<<<<< HEAD
     padding: 0.6rem 0.9rem;
     border: 1px solid var(--hairline);
     border-radius: 999px;
@@ -491,6 +698,12 @@ h1, h2, h3 {
 
 .search-form input:focus {
     border-color: var(--accent);
+=======
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .search-form input {
@@ -504,6 +717,7 @@ h1, h2, h3 {
 }
 
 .pill {
+<<<<<<< HEAD
     padding: 0.45rem 0.95rem;
     border-radius: 999px;
     border: 1px solid var(--hairline);
@@ -511,10 +725,19 @@ h1, h2, h3 {
     font-size: 0.85rem;
     color: var(--text-dim);
     transition: background 0.15s var(--ease), border-color 0.15s var(--ease), color 0.15s var(--ease);
+=======
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    font-size: 0.875rem;
+    transition: background 0.15s, border-color 0.15s;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .pill:hover,
 .pill.is-active {
+<<<<<<< HEAD
     border-color: var(--accent);
     background: rgba(217, 105, 46, 0.1);
     color: var(--accent-bright);
@@ -524,6 +747,14 @@ h1, h2, h3 {
    Product grid — ledger-stub price tags
    ============================================================ */
 
+=======
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--primary);
+}
+
+/* Product grid */
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -532,22 +763,35 @@ h1, h2, h3 {
 
 .product-card {
     background: var(--surface);
+<<<<<<< HEAD
     border: 1px solid var(--hairline);
     border-radius: var(--radius-lg);
     overflow: hidden;
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease), border-color 0.2s var(--ease);
+=======
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.2s, transform 0.2s;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .product-card:hover {
     box-shadow: var(--shadow);
     transform: translateY(-3px);
+<<<<<<< HEAD
     border-color: var(--hairline-bright);
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .product-thumb {
     aspect-ratio: 4 / 3;
+<<<<<<< HEAD
     background:
         linear-gradient(135deg, rgba(217, 105, 46, 0.16), rgba(62, 143, 110, 0.12));
     display: flex;
@@ -557,6 +801,15 @@ h1, h2, h3 {
     color: var(--accent-bright);
     overflow: hidden;
     position: relative;
+=======
+    background: linear-gradient(135deg, #e0e7ff, #f0f9ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: var(--primary);
+    overflow: hidden;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .product-thumb img {
@@ -573,6 +826,7 @@ h1, h2, h3 {
 }
 
 .product-category {
+<<<<<<< HEAD
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--muted);
@@ -610,6 +864,30 @@ h1, h2, h3 {
     color: var(--muted);
     margin-bottom: 1rem;
     font-family: var(--font-mono);
+=======
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.product-body h3 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1rem;
+    line-height: 1.35;
+}
+
+.product-price {
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.35rem;
+}
+
+.product-stock {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .product-actions {
@@ -620,6 +898,7 @@ h1, h2, h3 {
 
 .product-actions .btn {
     flex: 1;
+<<<<<<< HEAD
     font-size: 0.84rem;
     padding: 0.55rem 0.75rem;
 }
@@ -671,15 +950,44 @@ h1, h2, h3 {
     background: rgba(217, 105, 46, 0.08);
     color: var(--text-dim);
     border-color: var(--hairline-bright);
+=======
+    font-size: 0.85rem;
+    padding: 0.55rem 0.75rem;
+}
+
+/* Alerts */
+.alert {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.alert-error {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
+}
+
+.alert-info {
+    background: #eff6ff;
+    color: #1d4ed8;
+    border: 1px solid #bfdbfe;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 .empty-state {
     text-align: center;
+<<<<<<< HEAD
     padding: 3.5rem 1rem;
+=======
+    padding: 3rem 1rem;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     color: var(--muted);
     grid-column: 1 / -1;
 }
 
+<<<<<<< HEAD
 .empty-state p {
     margin: 0 0 1.25rem;
 }
@@ -692,6 +1000,12 @@ h1, h2, h3 {
     background: var(--bg-soft);
     border-top: 1px solid var(--hairline);
     color: var(--text-dim);
+=======
+/* Footer */
+.site-footer {
+    background: var(--text);
+    color: #cbd5e1;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     padding: 3rem 0 0;
     margin-top: 2rem;
 }
@@ -704,17 +1018,24 @@ h1, h2, h3 {
 }
 
 .footer-grid strong {
+<<<<<<< HEAD
     color: var(--paper);
     font-family: var(--font-display);
+=======
+    color: #fff;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     display: block;
     margin-bottom: 0.75rem;
 }
 
+<<<<<<< HEAD
 .footer-grid p {
     color: var(--muted);
     font-size: 0.88rem;
 }
 
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 .footer-grid ul {
     list-style: none;
     margin: 0;
@@ -725,6 +1046,7 @@ h1, h2, h3 {
     margin-bottom: 0.4rem;
 }
 
+<<<<<<< HEAD
 .footer-grid a {
     color: var(--muted);
     font-size: 0.88rem;
@@ -741,6 +1063,17 @@ h1, h2, h3 {
     text-align: center;
     color: var(--muted-2);
     font-family: var(--font-mono);
+=======
+.footer-grid a:hover {
+    color: #fff;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 0;
+    font-size: 0.85rem;
+    text-align: center;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 }
 
 @media (max-width: 768px) {
@@ -756,10 +1089,16 @@ h1, h2, h3 {
         flex-direction: column;
         align-items: stretch;
         background: var(--surface);
+<<<<<<< HEAD
         border-bottom: 1px solid var(--hairline);
         padding: 1rem;
         display: none;
         gap: 0.9rem;
+=======
+        border-bottom: 1px solid var(--border);
+        padding: 1rem;
+        display: none;
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     }
 
     .main-nav.is-open {
@@ -774,6 +1113,7 @@ h1, h2, h3 {
         grid-template-columns: 1fr;
     }
 }
+<<<<<<< HEAD
 
 /* ============================================================
    Order stamp — signature element echoed in admin tables
@@ -920,3 +1260,5 @@ h1, h2, h3 {
     color: var(--accent-bright);
     font-variant-numeric: tabular-nums;
 }
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0

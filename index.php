@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 declare(strict_types=1);
 
 // ── Bootstrap ──────────────────────────────────────────
@@ -80,6 +81,66 @@ try {
 }
 
 // ── Helpers ────────────────────────────────────────────
+=======
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/config/session.php';
+require_once __DIR__ . '/config/database.php';
+
+$pageTitle = 'Beranda';
+$bodyClass = 'page-home';
+
+$kategoriId = filter_input(INPUT_GET, 'kategori', FILTER_VALIDATE_INT);
+$search = trim((string) (filter_input(INPUT_GET, 'q', FILTER_UNSAFE_RAW) ?? ''));
+$search = mb_substr($search, 0, 100);
+
+$kategoriList = [];
+$produkList = [];
+$dbError = null;
+
+try {
+    $pdo = db();
+
+    $kategoriList = $pdo->query(
+        'SELECT id, nama FROM kategori ORDER BY nama ASC'
+    )->fetchAll();
+
+    $sql = '
+        SELECT p.id, p.nama, p.deskripsi, p.harga, p.stok, p.gambar, k.nama AS kategori_nama
+        FROM produk p
+        INNER JOIN kategori k ON k.id = p.kategori_id
+        WHERE p.stok > 0
+    ';
+    $params = [];
+
+    if ($kategoriId !== false && $kategoriId !== null && $kategoriId > 0) {
+        $sql .= ' AND p.kategori_id = :kategori_id';
+        $params['kategori_id'] = $kategoriId;
+    }
+
+    if ($search !== '') {
+        $sql .= ' AND (p.nama LIKE :search OR p.deskripsi LIKE :search)';
+        $params['search'] = '%' . $search . '%';
+    }
+
+    $sql .= ' ORDER BY p.created_at DESC';
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
+    $produkList = $stmt->fetchAll();
+
+    $totalProduk = (int) $pdo->query('SELECT COUNT(*) FROM produk WHERE stok > 0')->fetchColumn();
+    $totalKategori = (int) $pdo->query('SELECT COUNT(*) FROM kategori')->fetchColumn();
+    $totalPesanan = (int) $pdo->query('SELECT COUNT(*) FROM pesanan')->fetchColumn();
+} catch (PDOException) {
+    $dbError = 'Database belum siap. Import file config/penjualan_online.sql terlebih dahulu.';
+    $totalProduk = 0;
+    $totalKategori = 0;
+    $totalPesanan = 0;
+}
+
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 function formatRupiah(float|int|string $amount): string
 {
     return 'Rp ' . number_format((float) $amount, 0, ',', '.');
@@ -87,6 +148,7 @@ function formatRupiah(float|int|string $amount): string
 
 function productImageUrl(?string $gambar): ?string
 {
+<<<<<<< HEAD
     if ($gambar === null || $gambar === '') return null;
     $path = 'assets/img/produk/' . basename($gambar);
     return is_file(__DIR__ . '/' . $path) ? $path : null;
@@ -109,6 +171,22 @@ function productImageUrl(?string $gambar): ?string
 
 <main>
     <!-- ── Hero ── -->
+=======
+    if ($gambar === null || $gambar === '') {
+        return null;
+    }
+
+    $path = 'assets/img/produk/' . basename($gambar);
+
+    return is_file(__DIR__ . '/' . $path) ? $path : null;
+}
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
+?>
+
+<main>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     <section class="hero">
         <div class="container hero-grid">
             <div>
@@ -124,7 +202,11 @@ function productImageUrl(?string $gambar): ?string
                     <?php if (!isLoggedIn()): ?>
                         <a href="register.php" class="btn btn-outline">Buat Akun</a>
                     <?php else: ?>
+<<<<<<< HEAD
                         <a href="cart.php" class="btn btn-outline">Ke Keranjang</a>                        
+=======
+                        <a href="cart.php" class="btn btn-outline">Ke Keranjang</a>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                     <?php endif; ?>
                 </div>
             </div>
@@ -148,7 +230,10 @@ function productImageUrl(?string $gambar): ?string
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- ── Fitur ── -->
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     <section class="section" id="fitur">
         <div class="container">
             <div class="section-head">
@@ -180,7 +265,10 @@ function productImageUrl(?string $gambar): ?string
         </div>
     </section>
 
+<<<<<<< HEAD
     <!-- ── Katalog ── -->
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     <section class="section" id="produk">
         <div class="container">
             <div class="section-head">
@@ -208,7 +296,14 @@ function productImageUrl(?string $gambar): ?string
                 </form>
 
                 <div class="category-pills">
+<<<<<<< HEAD
                     <a href="index.php#produk" class="pill<?= !$kategoriId ? ' is-active' : '' ?>">Semua</a>
+=======
+                    <a
+                        href="index.php#produk"
+                        class="pill<?= !$kategoriId ? ' is-active' : '' ?>"
+                    >Semua</a>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                     <?php foreach ($kategoriList as $kat): ?>
                         <a
                             href="index.php?kategori=<?= (int) $kat['id'] ?>#produk"
@@ -221,6 +316,7 @@ function productImageUrl(?string $gambar): ?string
             <div class="product-grid">
                 <?php if ($produkList === []): ?>
                     <div class="empty-state">
+<<<<<<< HEAD
                         <p>
                             <?php if ($search !== ''): ?>
                                 Tidak ada produk yang cocok dengan "<strong><?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?></strong>".
@@ -231,21 +327,32 @@ function productImageUrl(?string $gambar): ?string
                         <?php if ($search !== '' || $kategoriId): ?>
                             <a href="index.php#produk" class="btn btn-outline">Lihat Semua Produk</a>
                         <?php endif; ?>
+=======
+                        <p>Belum ada produk ditemukan.</p>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                     </div>
                 <?php else: ?>
                     <?php foreach ($produkList as $produk): ?>
                         <?php
+<<<<<<< HEAD
                         $imgUrl    = productImageUrl($produk['gambar'] ?? null);
+=======
+                        $imgUrl = productImageUrl($produk['gambar'] ?? null);
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                         $detailUrl = 'detail_produk.php?id=' . (int) $produk['id'];
                         ?>
                         <article class="product-card">
                             <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>" class="product-thumb">
                                 <?php if ($imgUrl): ?>
+<<<<<<< HEAD
                                     <img
                                         src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>"
                                         alt="<?= htmlspecialchars($produk['nama'], ENT_QUOTES, 'UTF-8') ?>"
                                         loading="lazy"
                                     >
+=======
+                                    <img src="<?= htmlspecialchars($imgUrl, ENT_QUOTES, 'UTF-8') ?>" alt="">
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                                 <?php else: ?>
                                     <span aria-hidden="true">📦</span>
                                 <?php endif; ?>
@@ -263,12 +370,16 @@ function productImageUrl(?string $gambar): ?string
                                 <div class="product-stock">Stok: <?= (int) $produk['stok'] ?></div>
                                 <div class="product-actions">
                                     <a href="<?= htmlspecialchars($detailUrl, ENT_QUOTES, 'UTF-8') ?>" class="btn btn-outline">Detail</a>
+<<<<<<< HEAD
                                     <form action="proses/proses_cart.php" method="post">
                                         <input type="hidden" name="action" value="add">
                                         <input type="hidden" name="produk_id" value="<?= (int) $produk['id'] ?>">
                                         <input type="hidden" name="jumlah" value="1">
                                         <button type="submit" class="btn btn-primary">+ Keranjang</button>
                                     </form>
+=======
+                                    <a href="proses/proses_cart.php?aksi=tambah&amp;id=<?= (int) $produk['id'] ?>" class="btn btn-primary">+ Keranjang</a>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
                                 </div>
                             </div>
                         </article>
@@ -279,4 +390,8 @@ function productImageUrl(?string $gambar): ?string
     </section>
 </main>
 
+<<<<<<< HEAD
 <?php require __DIR__ . '/includes/footer.php'; ?>
+=======
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0

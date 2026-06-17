@@ -39,11 +39,14 @@ CREATE TABLE pesanan (
     user_id INT UNSIGNED NOT NULL,
     total DECIMAL(12, 2) NOT NULL,
     status ENUM('pending', 'diproses', 'dikirim', 'selesai', 'batal') NOT NULL DEFAULT 'pending',
+<<<<<<< HEAD
     nama_penerima VARCHAR(100) NOT NULL,
     alamat TEXT NOT NULL,
     telepon VARCHAR(20) NOT NULL,
     metode_pembayaran ENUM('transfer', 'cod', 'kartu_kredit') NOT NULL,
     catatan TEXT NULL,
+=======
+>>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_pesanan_user FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
