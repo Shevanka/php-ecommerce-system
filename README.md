@@ -685,10 +685,10 @@ Melalui proyek ini, tim mempelajari:
 ### Team Project
 
 **Shevanka Bagus D. K**
-- Role: Backend Authentication, Session, Cookies, Database
+- Role: Backend Authentication, Session, Cookies, Database, Admin Panel
 
 **Kristian Utama Putra**
-- Role: Product Management, Admin Panel, Testing
+- Role: Product Management, UI, Testing
 
 Repository ini dikembangkan sebagai proyek akhir Praktikum Pemrograman Web.
 
@@ -696,7 +696,6 @@ Repository ini dikembangkan sebagai proyek akhir Praktikum Pemrograman Web.
 
 ## License
 
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
 Project ini dibuat untuk tujuan akademik dan pembelajaran.
 
 © 2026 Tim Pengembang Sistem Informasi Penjualan Online
