@@ -1,701 +1,211 @@
-# Sistem Informasi Penjualan Online
+# PHP E-Commerce System
 
-Aplikasi penjualan online berbasis **PHP Native** dan **MySQL** yang dikembangkan sebagai proyek akhir Praktikum Pemrograman Web. Sistem ini mengimplementasikan fitur autentikasi menggunakan **Session** dan **Cookies**, manajemen produk, keranjang belanja, checkout, serta dashboard admin untuk pengelolaan data.
+A web-based e-commerce and online sales information system built with **Native PHP** and **MySQL**.  
+This project was developed as a final assignment for the **Web Programming Practice** course.
 
-> Status: 🚧 In Development (Proyek Akademik)
+It includes secure authentication, session and cookie-based access handling, product management, shopping cart flow, and order processing.
 
----
-
-## Preview
-
-> Screenshot akan ditambahkan setelah antarmuka utama selesai dikembangkan.
+> Status: 🚧 In Development (Academic Project)
 
 ---
 
-## About This Project
+## Project Overview
 
-Proyek ini dibuat untuk mengimplementasikan materi yang telah dipelajari pada mata kuliah Praktikum Pemrograman Web, meliputi:
+This application is designed to simulate a simple real-world online store where:
 
-- PHP Native
-- MySQL Database
-- CRUD (Create, Read, Update, Delete)
-- Session Management
-- Cookies Management
-- Authentication & Authorization
-- Form Validation
-- Relasi Database
-- Git & GitHub Collaboration
+- **Customers** can register, log in, browse products, add items to cart, and place orders.
+- **Admins** can manage products, categories, and monitor transactions from an admin panel.
 
-Sistem memungkinkan pengguna melakukan pembelian produk secara online, sementara admin dapat mengelola produk, kategori, dan pesanan melalui dashboard admin.
+The system emphasizes practical implementation of core web development concepts such as:
+
+- Native PHP architecture
+- Relational database modeling
+- Authentication & authorization
+- CRUD operations
+- Session & cookies management
+- Form validation and secure input handling
 
 ---
 
 ## Features
 
-### User Features
+### Customer Features
 
-- Registrasi akun
-- Login dan logout
-- Remember Me menggunakan cookies
-- Melihat daftar produk
-- Melihat detail produk
-- Menambahkan produk ke keranjang
-- Checkout pesanan
-- Melihat riwayat pesanan
+- User registration and login
+- Logout and session handling
+- Remember Me (cookie-based)
+- Product catalog browsing
+- Product detail view
+- Add to cart / manage cart items
+- Checkout process
+- Order history
 
 ### Admin Features
 
-- Login admin
-- Dashboard admin
-- CRUD produk
-- CRUD kategori
-- Manajemen pesanan
-- Monitoring data transaksi
+- Admin authentication
+- Admin dashboard
+- Product CRUD
+- Category CRUD
+- Order management
+- Transaction monitoring
 
 ### Security Features
 
 - Session-based authentication
 - Role-based authorization
-- Cookie implementation
 - Input validation
-- Session protection
+- Cookie handling for persistent login
+- Basic session protection
 
 ---
 
 ## Tech Stack
 
-### Backend
-
-- PHP Native
-
-### Frontend
-
-- HTML5
-- CSS3
-- JavaScript
-- Bootstrap 5
-
-### Database
-
-- MySQL / MariaDB
-
-### Development Tools
-
-- Visual Studio Code
-- Git
-- GitHub
-- XAMPP / Laragon
-- phpMyAdmin
+- **Backend:** Native PHP
+- **Frontend:** HTML5, CSS3, JavaScript, Bootstrap 5
+- **Database:** MySQL / MariaDB
+- **Development Tools:** VS Code, Git, GitHub, XAMPP/Laragon, phpMyAdmin
 
 ---
 
-## Project Structure
+## Setup & Installation
 
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-penjualan-online/
-│
-├── index.php
-├── login.php
-├── register.php
-├── logout.php
-├── detail_produk.php
-├── cart.php
-├── checkout.php
-├── riwayat_pesanan.php
-│
-├── config/
-│   ├── database.php
-│   └── session.php
-│
-├── admin/
-│   ├── dashboard.php
-│   ├── produk.php
-│   ├── tambah_produk.php
-│   ├── edit_produk.php
-│   ├── hapus_produk.php
-│   ├── kategori.php
-│   ├── tambah_kategori.php
-│   ├── edit_kategori.php
-│   ├── hapus_kategori.php
-│   └── pesanan.php
-│
-├── proses/
-│   ├── proses_login.php
-│   ├── proses_register.php
-│   ├── proses_tambah_produk.php
-│   ├── proses_edit_produk.php
-│   ├── proses_hapus_produk.php
-│   ├── proses_tambah_kategori.php
-│   ├── proses_edit_kategori.php
-│   ├── proses_hapus_kategori.php
-│   ├── proses_cart.php
-│   └── proses_checkout.php
-│
-├── includes/
-│   ├── header.php
-│   ├── navbar.php
-│   ├── footer.php
-│   └── alert.php
-│
-├── assets/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── script.js
-│   └── img/
-│       ├── logo.png
-│       └── produk/
-│
-└── database/
-    └── penjualan_online.sql
-<<<<<<< HEAD
-Database Structure
-Database yang digunakan:
-
-penjualan_online
-Tabel utama:
-
-=======
-```
-
----
-
-## Database Structure
-
-Database yang digunakan:
-
-```sql
-penjualan_online
-```
-
-Tabel utama:
-
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-users
-kategori
-produk
-pesanan
-detail_pesanan
-<<<<<<< HEAD
-Relasi sederhana:
-
-=======
-```
-
-Relasi sederhana:
-
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-users
- └── pesanan
-      └── detail_pesanan
-            └── produk
-                  └── kategori
-<<<<<<< HEAD
-Installation
-1. Clone Repository
-git clone <REPOSITORY_URL>
-cd penjualan-online
-2. Jalankan Web Server
-Gunakan salah satu:
-
-XAMPP
-Laragon
-Pastikan:
-
-Apache aktif
-MySQL aktif
-3. Buat Database
-CREATE DATABASE penjualan_online;
-4. Import Database
-Import file:
-
-database/penjualan_online.sql
-5. Konfigurasi Database
-Konfigurasi default sudah cocok untuk Laragon (root tanpa password). Untuk environment lain, gunakan environment variable berikut berdasarkan .env.example:
-
-APP_BASE_PATH=/penjualan-online
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_NAME=penjualan_online
-DB_USER=root
-DB_PASS=
-6. Jalankan Aplikasi
-Buka browser:
-
-http://localhost/penjualan-online
-Usage
-User
-Registrasi akun
-Login ke sistem
-Jelajahi produk
-Tambahkan produk ke keranjang
-Checkout pesanan
-Lihat riwayat transaksi
-Admin
-Login sebagai admin
-Kelola kategori
-Kelola produk
-Kelola pesanan
-Monitoring transaksi
-Session & Cookies Implementation
-Session
-Digunakan untuk:
-
-Menyimpan status login
-Menyimpan data pengguna aktif
-Menyimpan keranjang belanja
-Flash message
-Contoh:
-
-=======
-```
-
----
-
-## Installation
-
-### 1. Clone Repository
+### 1) Clone the repository
 
 ```bash
-git clone <REPOSITORY_URL>
-cd penjualan-online
+git clone https://github.com/Shevanka/php-ecommerce-system.git
+cd php-ecommerce-system
 ```
 
-### 2. Jalankan Web Server
+### 2) Start local server
 
-Gunakan salah satu:
+Use one of the following:
 
 - XAMPP
 - Laragon
 
-Pastikan:
+Make sure:
 
-- Apache aktif
-- MySQL aktif
+- Apache is running
+- MySQL is running
 
-### 3. Buat Database
+### 3) Create database
 
 ```sql
 CREATE DATABASE penjualan_online;
 ```
 
-### 4. Import Database
+### 4) Import database schema
 
-Import file:
+Import this file into your MySQL server:
 
 ```text
 database/penjualan_online.sql
 ```
 
-### 5. Konfigurasi Database
+### 5) Configure database connection
 
-File:
+Edit the database configuration file if needed:
 
 ```text
 config/database.php
 ```
 
-Contoh konfigurasi:
+Typical local values:
 
 ```php
-<?php
-
 $host = "localhost";
 $user = "root";
 $pass = "";
 $db   = "penjualan_online";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conn) {
-    die("Koneksi database gagal");
-}
 ```
 
-### 6. Jalankan Aplikasi
+### 6) Run the app
 
-Buka browser:
+Open in browser:
 
 ```text
-http://localhost/penjualan-online
+http://localhost/php-ecommerce-system
 ```
+
+> If your local folder name is different, adjust the URL path accordingly.
 
 ---
 
 ## Usage
 
-### User
+### As Customer
 
-1. Registrasi akun
-2. Login ke sistem
-3. Jelajahi produk
-4. Tambahkan produk ke keranjang
-5. Checkout pesanan
-6. Lihat riwayat transaksi
+1. Register a new account
+2. Log in
+3. Browse available products
+4. Add products to cart
+5. Complete checkout
+6. View order history
 
-### Admin
+### As Admin
 
-1. Login sebagai admin
-2. Kelola kategori
-3. Kelola produk
-4. Kelola pesanan
-5. Monitoring transaksi
-
----
-
-## Session & Cookies Implementation
-
-### Session
-
-Digunakan untuk:
-
-- Menyimpan status login
-- Menyimpan data pengguna aktif
-- Menyimpan keranjang belanja
-- Flash message
-
-Contoh:
-
-```php
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-$_SESSION['user_id'];
-$_SESSION['username'];
-$_SESSION['role'];
-$_SESSION['cart'];
-<<<<<<< HEAD
-Cookies
-Digunakan untuk:
-
-Remember Me
-Menyimpan preferensi pengguna
-Contoh:
-
-=======
-```
-
-### Cookies
-
-Digunakan untuk:
-
-- Remember Me
-- Menyimpan preferensi pengguna
-
-Contoh:
-
-```php
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-setcookie(
-    "remember_user",
-    $user_id,
-    time() + (86400 * 7),
-    "/"
-);
-<<<<<<< HEAD
-GitHub Workflow
-Branch Strategy
-=======
-```
-
----
-
-## GitHub Workflow
-
-### Branch Strategy
-
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-main
-dev
-feature/login-register
-feature/admin-produk
-feature/cart-checkout
-feature/database
-<<<<<<< HEAD
-Development Flow
-=======
-```
-
-### Development Flow
-
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-Issue
- ↓
-Feature Branch
- ↓
-Commit
- ↓
-Push
- ↓
-Pull Request
- ↓
-Code Review
- ↓
-Merge ke dev
- ↓
-Testing
- ↓
-Merge ke main
-<<<<<<< HEAD
-Commit Convention
-Gunakan format:
-
-type: short description
-Contoh:
-
-=======
-```
-
----
-
-## Commit Convention
-
-Gunakan format:
-
-```text
-type: short description
-```
-
-Contoh:
-
-```text
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
-feat: add login feature
-feat: add shopping cart
-fix: resolve checkout validation
-docs: update readme
-style: improve navbar layout
-refactor: separate database configuration
-test: add login testing
-chore: update gitignore
-<<<<<<< HEAD
-Jenis commit:
-
-Type	Kegunaan
-feat	Fitur baru
-fix	Perbaikan bug
-docs	Dokumentasi
-style	Tampilan
-refactor	Perapian kode
-test	Pengujian
-chore	Maintenance
-Team Collaboration Rules
-Branch Naming
-feature/nama-fitur
-fix/nama-bug
-docs/nama-dokumentasi
-Contoh:
-
-feature/login
-feature/cart
-fix/session-error
-Pull Request Rules
-Tidak boleh push langsung ke main
-Semua perubahan melalui Pull Request
-Pull Request wajib memiliki deskripsi
-Pull Request harus lolos testing lokal
-Review Rules
-Minimal 1 reviewer
-Berikan komentar yang konstruktif
-Jangan merge kode yang belum diuji
-Merge Rules
-Lakukan merge jika:
-
-Tidak ada konflik
-Tidak ada error
-Fitur berjalan sesuai kebutuhan
-Review telah selesai
-Screenshots
-Screenshot akan ditambahkan setelah UI final selesai.
-Rekomendasi screenshot:
-
-Halaman Login
-Halaman Register
-Dashboard Admin
-Daftar Produk
-Keranjang Belanja
-Checkout
-Roadmap
-Version 1.0
- Perancangan struktur proyek
- Perancangan database
- Login & Register
- Session Management
- Cookies Implementation
- CRUD Produk
- CRUD Kategori
- Shopping Cart
- Checkout
- Riwayat Pesanan
-Version 1.1
- Pencarian produk
- Filter kategori
- Upload gambar produk
- Dashboard statistik
-Version 1.2
- Pagination produk
- Export laporan
- Notifikasi transaksi
-What I Learned
-Melalui proyek ini, tim mempelajari:
-
-Implementasi PHP Native dalam aplikasi nyata
-Manajemen Session dan Cookies
-Perancangan database relasional MySQL
-Penerapan CRUD pada aplikasi web
-Kolaborasi tim menggunakan Git dan GitHub
-Penggunaan Pull Request dan Code Review
-Pengelolaan proyek menggunakan GitHub Issues
-Author
-Team Project
-Shevanka Bagus D. K
-
-Role: Backend Authentication, Session, Cookies, Database
-Kristian Utama Putra
-
-Role: Product Management, Admin Panel, Testing
-Repository ini dikembangkan sebagai proyek akhir Praktikum Pemrograman Web.
-
-License
-=======
-```
-
-Jenis commit:
-
-| Type | Kegunaan |
-|--------|--------|
-| feat | Fitur baru |
-| fix | Perbaikan bug |
-| docs | Dokumentasi |
-| style | Tampilan |
-| refactor | Perapian kode |
-| test | Pengujian |
-| chore | Maintenance |
-
----
-
-## Team Collaboration Rules
-
-### Branch Naming
-
-```text
-feature/nama-fitur
-fix/nama-bug
-docs/nama-dokumentasi
-```
-
-Contoh:
-
-```text
-feature/login
-feature/cart
-fix/session-error
-```
-
-### Pull Request Rules
-
-- Tidak boleh push langsung ke `main`
-- Semua perubahan melalui Pull Request
-- Pull Request wajib memiliki deskripsi
-- Pull Request harus lolos testing lokal
-
-### Review Rules
-
-- Minimal 1 reviewer
-- Berikan komentar yang konstruktif
-- Jangan merge kode yang belum diuji
-
-### Merge Rules
-
-Lakukan merge jika:
-
-- Tidak ada konflik
-- Tidak ada error
-- Fitur berjalan sesuai kebutuhan
-- Review telah selesai
+1. Log in with admin account
+2. Manage categories
+3. Manage products
+4. Manage incoming orders
+5. Monitor transaction data
 
 ---
 
 ## Screenshots
 
+Screenshots are not yet available in this repository. Recommended sections to document:
+
+- Login page
+- Register page
+- Product listing page
+- Product detail page
+- Shopping cart page
+- Checkout page
+- Admin dashboard
+- Product/category management pages
+
+> You can add screenshots later in a `docs/screenshots/` folder and link them here.
+
+---
+
+## Contribution
+
+Contributions are welcome for educational improvements.
+
+1. Fork this repository
+2. Create a feature branch (`feature/your-feature-name`)
+3. Commit your changes with clear messages
+4. Push to your branch
+5. Open a Pull Request
+
+### Suggested Commit Convention
+
 ```text
-Screenshot akan ditambahkan setelah UI final selesai.
+type: short description
 ```
 
-Rekomendasi screenshot:
+Examples:
 
-- Halaman Login
-- Halaman Register
-- Dashboard Admin
-- Daftar Produk
-- Keranjang Belanja
-- Checkout
-
----
-
-## Roadmap
-
-### Version 1.0
-
-- [x] Perancangan struktur proyek
-- [x] Perancangan database
-- [ ] Login & Register
-- [ ] Session Management
-- [ ] Cookies Implementation
-- [ ] CRUD Produk
-- [ ] CRUD Kategori
-- [ ] Shopping Cart
-- [ ] Checkout
-- [ ] Riwayat Pesanan
-
-### Version 1.1
-
-- [ ] Pencarian produk
-- [ ] Filter kategori
-- [ ] Upload gambar produk
-- [ ] Dashboard statistik
-
-### Version 1.2
-
-- [ ] Pagination produk
-- [ ] Export laporan
-- [ ] Notifikasi transaksi
-
----
-
-## What I Learned
-
-Melalui proyek ini, tim mempelajari:
-
-- Implementasi PHP Native dalam aplikasi nyata
-- Manajemen Session dan Cookies
-- Perancangan database relasional MySQL
-- Penerapan CRUD pada aplikasi web
-- Kolaborasi tim menggunakan Git dan GitHub
-- Penggunaan Pull Request dan Code Review
-- Pengelolaan proyek menggunakan GitHub Issues
-
----
-
-## Author
-
-### Team Project
-
-**Shevanka Bagus D. K**
-- Role: Backend Authentication, Session, Cookies, Database, Admin Panel
-
-**Kristian Utama Putra**
-- Role: Product Management, UI, Testing
-
-Repository ini dikembangkan sebagai proyek akhir Praktikum Pemrograman Web.
+- `feat: add checkout validation`
+- `fix: resolve session timeout bug`
+- `docs: improve installation guide`
+- `refactor: simplify database connection`
 
 ---
 
 ## License
 
-Project ini dibuat untuk tujuan akademik dan pembelajaran.
+This project is intended for **academic and learning purposes**.
 
-© 2026 Tim Pengembang Sistem Informasi Penjualan Online
+If you plan to reuse this code in another project, please provide proper attribution to the original repository.
+
+---
+
+## Author
+
+Developed by the project team:
+
+- **Shevanka Bagus D. K**
+- **Kristian Utama Putra**
