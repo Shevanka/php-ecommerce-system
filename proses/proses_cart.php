@@ -44,14 +44,15 @@ try {
 } catch (Exception $e) {
     error_log('Cart Error: ' . $e->getMessage());
     setFlash('cart', $e->getMessage(), 'danger');
-    
+
     // Redirect ke halaman yang sesuai
     $referrer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '../cart.php';
     header('Location: ' . $referrer);
     exit;
 }
 
-function handleAddToCart() {
+function handleAddToCart()
+{
     global $conn;
 
     // Ambil data
@@ -88,39 +89,24 @@ function handleAddToCart() {
     // Tambah ke cart atau update jumlah jika sudah ada
     $cartKey = 'produk_' . $produk_id;
     if (isset($_SESSION['cart'][$cartKey])) {
-<<<<<<< HEAD
-        $jumlahBaru = $_SESSION['cart'][$cartKey]['jumlah'] + $jumlah;
-        if ($jumlahBaru > $produk['stok']) {
-            throw new Exception('Jumlah melebihi stok yang tersedia');
-        }
-        $_SESSION['cart'][$cartKey]['jumlah'] = $jumlahBaru;
-    } else {
-        $_SESSION['cart'][$cartKey] = [
-            'produk_id' => $produk_id,
-            'nama_produk' => $produk['nama'],
-=======
         $_SESSION['cart'][$cartKey]['jumlah'] += $jumlah;
     } else {
         $_SESSION['cart'][$cartKey] = [
             'produk_id' => $produk_id,
-            'nama_produk' => $produk['nama_produk'],
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
+            'nama_produk' => $produk['nama'],
             'harga' => $produk['harga'],
             'jumlah' => $jumlah,
             'gambar' => $produk['gambar']
         ];
     }
 
-<<<<<<< HEAD
     setFlash('cart', $produk['nama'] . ' ditambahkan ke keranjang', 'success');
-=======
-    setFlash('cart', $produk['nama_produk'] . ' ditambahkan ke keranjang', 'success');
->>>>>>> ae7e33b89ac0a04007ceeceae2da2177530b51c0
     header('Location: ../cart.php');
     exit;
 }
 
-function handleUpdateCart() {
+function handleUpdateCart()
+{
     global $conn;
 
     // Ambil data
@@ -167,7 +153,8 @@ function handleUpdateCart() {
     exit;
 }
 
-function handleRemoveFromCart() {
+function handleRemoveFromCart()
+{
     // Ambil data
     $produk_id = isset($_POST['produk_id']) ? intval($_POST['produk_id']) : 0;
 
@@ -189,7 +176,8 @@ function handleRemoveFromCart() {
     exit;
 }
 
-function handleClearCart() {
+function handleClearCart()
+{
     $_SESSION['cart'] = [];
     setFlash('cart', 'Keranjang berhasil dikosongkan', 'info');
     header('Location: ../cart.php');
