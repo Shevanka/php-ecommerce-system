@@ -8,7 +8,7 @@ requireLogin();
 // ── Guard ──────────────────────────────────────────────
 if (empty($_SESSION['cart'])) {
     setFlash('warning', 'Keranjang belanja kosong.');
-    header('Location: /ta2/cart.php');
+    header('Location: cart.php');
     exit;
 }
 
@@ -28,7 +28,7 @@ foreach ($cart as $item) {
     <title>Checkout | Penjualan Online</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="/ta2/assets/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* ── Checkout Layout ── */
         .checkout-wrapper {

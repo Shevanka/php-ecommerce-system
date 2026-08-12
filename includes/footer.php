@@ -9,28 +9,28 @@
         <div>
             <strong>Belanja</strong>
             <ul>
-                <li><a href="/ta2/index.php#produk">Katalog Produk</a></li>
-                <li><a href="/ta2/cart.php">Keranjang</a></li>
-                <li><a href="/ta2/checkout.php">Checkout</a></li>
-                <li><a href="/ta2/riwayat_pesanan.php">Riwayat Pesanan</a></li>
+                <li><a href="index.php#produk">Katalog Produk</a></li>
+                <li><a href="cart.php">Keranjang</a></li>
+                <li><a href="checkout.php">Checkout</a></li>
+                <li><a href="riwayat_pesanan.php">Riwayat Pesanan</a></li>
             </ul>
         </div>
 
         <div>
             <strong>Akun</strong>
             <ul>
-                <li><a href="/ta2/register.php">Registrasi</a></li>
-                <li><a href="/ta2/login.php">Login</a></li>
+                <li><a href="register.php">Registrasi</a></li>
+                <li><a href="login.php">Login</a></li>
             </ul>
         </div>
 
         <div>
             <strong>Admin</strong>
             <ul>
-                <li><a href="/ta2/admin/dashboard.php">Dashboard</a></li>
-                <li><a href="/ta2/admin/produk.php">Kelola Produk</a></li>
-                <li><a href="/ta2/admin/kategori.php">Kelola Kategori</a></li>
-                <li><a href="/ta2/admin/pesanan.php">Kelola Pesanan</a></li>
+                <li><a href="admin/dashboard.php">Dashboard</a></li>
+                <li><a href="admin/produk.php">Kelola Produk</a></li>
+                <li><a href="admin/kategori.php">Kelola Kategori</a></li>
+                <li><a href="admin/pesanan.php">Kelola Pesanan</a></li>
             </ul>
         </div>
 
@@ -43,6 +43,6 @@
     </div>
 </footer>
 
-<script src="/ta2/assets/js/script.js"></script>
+<script src="assets/js/script.js"></script>
 </body>
 </html>

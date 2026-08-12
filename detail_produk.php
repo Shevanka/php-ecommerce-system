@@ -9,7 +9,7 @@ require_once __DIR__ . '/config/database.php';
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($id <= 0) {
-    header('Location: /ta2/index.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -19,7 +19,7 @@ $stmt->execute();
 $produk = $stmt->get_result()->fetch_assoc();
 
 if (!$produk) {
-    header('Location: /ta2/index.php');
+    header('Location: index.php');
     exit;
 }
 
@@ -36,7 +36,7 @@ $inStock  = (int) $produk['stok'] > 0;
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/ta2/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
         /* ── Detail Layout ── */
         .detail-grid {
@@ -208,7 +208,7 @@ $inStock  = (int) $produk['stok'] > 0;
             <div class="detail-image">
                 <?php if ($hasImage): ?>
                     <img
-                        src="/ta2/<?= htmlspecialchars($imgPath, ENT_QUOTES, 'UTF-8') ?>"
+                        src="<?= htmlspecialchars($imgPath, ENT_QUOTES, 'UTF-8') ?>"
                         alt="<?= htmlspecialchars($produk['nama'], ENT_QUOTES, 'UTF-8') ?>"
                     >
                 <?php else: ?>

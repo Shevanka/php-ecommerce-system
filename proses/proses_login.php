@@ -34,6 +34,6 @@ $_SESSION['role'] = $user['role'];
 session_regenerate_id(true);
 
 header('Location: ' . ($user['role'] === 'admin'
-    ? '/TA2/admin/dashboard.php'
-    : '/TA2/index.php'));
+    ? BASE_URL . '/admin/dashboard.php'
+    : BASE_URL . '/index.php'));
 exit;
