@@ -89,6 +89,27 @@ a {
     border-radius: 2px;
 }
 
+.container {
+    width: min(1120px, 92vw);
+    margin-inline: auto;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--paper);
+}
+
+::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+}
+
+/* ============================================================
+   Header / Nav
+   ============================================================ */
+
 .site-header {
     position: sticky;
     top: 0;
@@ -525,6 +546,19 @@ a {
     border-color: var(--hairline-bright);
 }
 
+.product-thumb {
+    aspect-ratio: 4 / 3;
+    background:
+        linear-gradient(135deg, rgba(217, 105, 46, 0.16), rgba(62, 143, 110, 0.12));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    color: var(--accent-bright);
+    overflow: hidden;
+    position: relative;
+}
+
 .product-thumb img {
     width: 100%;
     height: 100%;
@@ -681,6 +715,32 @@ a {
     font-size: 0.88rem;
 }
 
+.footer-grid ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-grid li {
+    margin-bottom: 0.4rem;
+}
+
+.footer-grid a {
+    color: var(--muted);
+    font-size: 0.88rem;
+}
+
+.footer-grid a:hover {
+    color: var(--accent-bright);
+}
+
+.footer-bottom {
+    border-top: 1px solid var(--hairline);
+    padding: 1.1rem 0;
+    font-size: 0.8rem;
+    text-align: center;
+    color: var(--muted-2);
+    font-family: var(--font-mono);
 }
 
 @media (max-width: 768px) {
