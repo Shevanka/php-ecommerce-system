@@ -155,18 +155,20 @@ http://localhost/php-ecommerce-system
 
 ## Screenshots
 
-Screenshots are not yet available in this repository. Recommended sections to document:
+| Landing page | Shopping cart |
+| :---: | :---: |
+| ![Landing page](docs/screenshots/home.png) | ![Shopping cart](docs/screenshots/cart.png) |
 
-- Login page
-- Register page
-- Product listing page
-- Product detail page
-- Shopping cart page
-- Checkout page
-- Admin dashboard
-- Product/category management pages
+| Admin dashboard | Order management |
+| :---: | :---: |
+| ![Admin dashboard](docs/screenshots/admin-dashboard.png) | ![Order management](docs/screenshots/admin-orders.png) |
 
-> You can add screenshots later in a `docs/screenshots/` folder and link them here.
+Demo accounts from `database/penjualan_online.sql` (password `password`):
+
+| Role | Email |
+| :--- | :--- |
+| Admin | `admin@toko.local` |
+| Customer | `user@toko.local` |
 
 ---
 
